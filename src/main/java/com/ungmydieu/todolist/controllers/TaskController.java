@@ -20,19 +20,8 @@ public class TaskController {
         return taskRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    Task get(@PathVariable int id) {
-        Optional<Task> optionalTask = taskRepository.findById(id);
-
-        if (optionalTask.isPresent()) {
-            return optionalTask.get();
-        }
-
-        throw new NotFoundException(String.format("Task id %d not found", id));
-    }
-
     @GetMapping("/find")
-    Iterable<Task> findByTitle(@RequestParam String title) {
+    Iterable<Task> findByTitle(@RequestParam( value="title",required = false) String title) {
         return taskRepository.findByTitleContaining(title);
     }
 
@@ -49,8 +38,12 @@ public class TaskController {
         taskRepository.save(task);
     }
 
-    @PutMapping
-    void put(@RequestBody Task task) {
+    @PutMapping("/{id}")
+    void put(@PathVariable int id, @RequestBody Task task) {
+        if (!taskRepository.existsById(id)) {
+            throw new NotFoundException(String.format("Task id %d not found", id));
+        }
+        task.setId(id);
         taskRepository.save(task);
     }
 }
