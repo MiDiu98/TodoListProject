@@ -1,7 +1,7 @@
 -- -----------------------------------------------------
 -- Table `todolist-test`.`task`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `todolist-test`.`task` (
+CREATE TABLE IF NOT EXISTS `todolistTest`.`task` (
   `id` INT NOT NULL,
   `description` VARCHAR(255) NULL DEFAULT NULL,
   `end_time` DATETIME(6) NULL DEFAULT NULL,
