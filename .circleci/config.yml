@@ -8,9 +8,9 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
-      - image: circleci/php:7.1-apache-node-browsers # The primary container where steps are run
       - image: circleci/mysql:8.0.19
         environment:
+          MYSQL_HOST: 127.0.0.1
           MYSQL_ROOT_PASSWORD: 1234
           MYSQL_DATABASE: todolist-test
           MYSQL_USER: spring
@@ -75,8 +75,8 @@ jobs:
           name: Install MySQL CLI; Import todolist-test data; run an example query
           command: |
             sudo apt-get install default-mysql-client
-            mysql -h 127.0.0.1 -u spring -p Spring12345 todolist-test < todolist-test.sql
-            mysql -h 127.0.0.1 -u spring -p Spring12345 --execute="SELECT * FROM todolist-test.Task"
+            mysql -h 127.0.0.1 -u spring -pSpring12345 todolist-test < todolist-test.sql
+            mysql -h 127.0.0.1 -u spring -pSpring12345 --execute="SELECT * FROM todolist-test.task"
 workflows:
   version: 2
   build-deploy:
