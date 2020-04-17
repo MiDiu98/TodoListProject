@@ -17,7 +17,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema todolist-test
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `todolist-test` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+CREATE SCHEMA IF NOT EXISTS `todolist-test` DEFAULT CHARACTER SET utf8mb4;
 USE `todolist-test` ;
 
 -- -----------------------------------------------------
@@ -26,8 +26,7 @@ USE `todolist-test` ;
 CREATE TABLE IF NOT EXISTS `todolist-test`.`hibernate_sequence` (
     `next_val` BIGINT NULL DEFAULT NULL)
     ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+    DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
