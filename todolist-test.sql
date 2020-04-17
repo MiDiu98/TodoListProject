@@ -17,13 +17,13 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema todolist-test
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `todolist-test` DEFAULT CHARACTER SET utf8mb4;
-USE `todolist-test` ;
+CREATE SCHEMA IF NOT EXISTS `todolistTest` DEFAULT CHARACTER SET utf8mb4;
+USE `todolistTest` ;
 
 -- -----------------------------------------------------
 -- Table `todolist-test`.`hibernate_sequence`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `todolist-test`.`hibernate_sequence` (
+CREATE TABLE IF NOT EXISTS `todolistTest`.`hibernate_sequence` (
     `next_val` BIGINT NULL DEFAULT NULL)
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `todolist-test`.`hibernate_sequence` (
 -- -----------------------------------------------------
 -- Table `todolist-test`.`task`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `todolist-test`.`task` (
+CREATE TABLE IF NOT EXISTS `todolistTest`.`task` (
                                                       `id` INT NOT NULL,
                                                       `description` VARCHAR(255) NULL DEFAULT NULL,
                                                       `end_time` DATETIME(6) NULL DEFAULT NULL,
