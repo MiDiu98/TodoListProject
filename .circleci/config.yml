@@ -72,10 +72,10 @@ jobs:
             done
             echo Failed waiting for MySQL && exit 1
       - run:
-          name: Install MySQL CLI; Import dummy data; run an example query
+          name: Install MySQL CLI; Import todolist-test data; run an example query
           command: |
             sudo apt-get install default-mysql-client
-            mysql -h 127.0.0.1 -u spring -p Spring12345 todolist-test < sql-data/dummy.sql
+            mysql -h 127.0.0.1 -u spring -p Spring12345 todolist-test < todolist-test.sql
             mysql -h 127.0.0.1 -u spring -p Spring12345 --execute="SELECT * FROM todolist-test.Task"
 workflows:
   version: 2
