@@ -6,10 +6,8 @@ import com.ungmydieu.todolist.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
-@RequestMapping("api/todos")
+@RequestMapping("api/tasks")
 public class TaskController {
 
     @Autowired
@@ -28,7 +26,7 @@ public class TaskController {
     @DeleteMapping("/{id}")
     void delete(@PathVariable int id) {
         if (!taskRepository.existsById(id)) {
-            throw new NotFoundException(String.format("Task id %d not found", id));
+            throw new NotFoundException(String.format("Task id %d is not found", id));
         }
 
         taskRepository.deleteById(id);
@@ -41,7 +39,7 @@ public class TaskController {
     @PutMapping("/{id}")
     void put(@PathVariable int id, @RequestBody Task task) {
         if (!taskRepository.existsById(id)) {
-            throw new NotFoundException(String.format("Task id %d not found", id));
+            throw new NotFoundException(String.format("Task id %d is not found", id));
         }
         task.setId(id);
         taskRepository.save(task);

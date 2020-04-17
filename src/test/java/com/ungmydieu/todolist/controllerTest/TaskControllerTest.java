@@ -54,7 +54,7 @@ public class TaskControllerTest {
     @Test
     public void test_getAll() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/api/todos")
+                .get("/api/tasks")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -65,7 +65,7 @@ public class TaskControllerTest {
 
     @Test
     public void test_getTaskByTitle_Found() throws Exception {
-        mockMvc.perform(get("/api/todos/find")
+        mockMvc.perform(get("/api/tasks/find")
                         .param("title", "e2")
                 ).andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -77,7 +77,7 @@ public class TaskControllerTest {
         Gson gson = new Gson();
         String json = gson.toJson(new Task(task2.getId(), "updateTitle2", "des", null, null, true));
 
-        mockMvc.perform(put("/api/todos/{id}",task2.getId())
+        mockMvc.perform(put("/api/tasks/{id}",task2.getId())
                 .contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
 
@@ -92,7 +92,7 @@ public class TaskControllerTest {
         Gson gson = new Gson();
         String json = gson.toJson(new Task());
 
-        mockMvc.perform(put("/api/todos/{id}", 200)
+        mockMvc.perform(put("/api/tasks/{id}", 200)
                 .contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isNotFound());
     }
@@ -102,7 +102,7 @@ public class TaskControllerTest {
         Gson gson = new Gson();
         String json = gson.toJson(new Task(0, "postTitle", "des", null, null, true));
 
-        mockMvc.perform(post("/api/todos")
+        mockMvc.perform(post("/api/tasks")
                 .contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
 
@@ -114,14 +114,14 @@ public class TaskControllerTest {
 
     @Test
     public void test_deleteTask_Found() throws Exception {
-        mockMvc.perform(delete("/api/todos/" + task1.getId()))
+        mockMvc.perform(delete("/api/tasks/" + task1.getId()))
                 .andExpect(status().isOk());
         assertFalse(taskRepository.findById(task1.getId()).isPresent());
     }
 
     @Test
     public void test_deleteTask_NotFound() throws Exception {
-        mockMvc.perform(delete("/api/todos/" + task1.getId() + task2.getId()))
+        mockMvc.perform(delete("/api/tasks/" + task1.getId() + task2.getId()))
                 .andExpect(status().isNotFound());
     }
 }
