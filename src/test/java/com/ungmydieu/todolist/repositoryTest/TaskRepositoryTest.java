@@ -21,7 +21,7 @@ public class TaskRepositoryTest {
 
     @Test
     public void test_findByTitleContaining() {
-        Task task = new Task(1,"title","des",null,null,true);
+        Task task = new Task(1,"title","des",null,null);
         taskRepository.save(task);
 
         assertEquals(taskRepository.findByTitleContaining("ti"), Arrays.asList(task));

@@ -25,10 +25,7 @@ public class TaskController {
 
     @DeleteMapping("/{id}")
     void delete(@PathVariable int id) {
-        if (!taskRepository.existsById(id)) {
-            throw new NotFoundException(String.format("Task id %d is not found", id));
-        }
-
+        verifyTaskIdExist(id);
         taskRepository.deleteById(id);
     }
     @PostMapping
@@ -38,10 +35,14 @@ public class TaskController {
 
     @PutMapping("/{id}")
     void put(@PathVariable int id, @RequestBody Task task) {
+        verifyTaskIdExist(id);
+        task.setId(id);
+        taskRepository.save(task);
+    }
+
+    void verifyTaskIdExist(int id) {
         if (!taskRepository.existsById(id)) {
             throw new NotFoundException(String.format("Task id %d is not found", id));
         }
-        task.setId(id);
-        taskRepository.save(task);
     }
 }

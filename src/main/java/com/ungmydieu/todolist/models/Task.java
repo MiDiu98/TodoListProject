@@ -16,7 +16,6 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-//    @Column(columnDefinition = "NOT NULL")
     private String title;
 
     private String description;
@@ -24,6 +23,4 @@ public class Task {
     private Date startTime;
 
     private Date endTime;
-
-    private boolean status;
 }

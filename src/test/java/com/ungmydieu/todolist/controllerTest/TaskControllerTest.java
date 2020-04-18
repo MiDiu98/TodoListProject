@@ -42,8 +42,8 @@ public class TaskControllerTest {
 
     @BeforeEach
     public void init() {
-        task1 = taskRepository.save(new Task(1,"title", "des", null, null, false));
-        task2 = taskRepository.save(new Task(2,"title2","des", null, null, true));
+        task1 = taskRepository.save(new Task(1,"title", "des", null, null));
+        task2 = taskRepository.save(new Task(2,"title2","des", null, null));
     }
 
     @AfterEach
@@ -75,7 +75,7 @@ public class TaskControllerTest {
     @Test
     public void test_put_Found() throws Exception {
         Gson gson = new Gson();
-        String json = gson.toJson(new Task(task2.getId(), "updateTitle2", "des", null, null, true));
+        String json = gson.toJson(new Task(task2.getId(), "updateTitle2", "des", null, null));
 
         mockMvc.perform(put("/api/tasks/{id}",task2.getId())
                 .contentType(MediaType.APPLICATION_JSON).content(json))
@@ -100,7 +100,7 @@ public class TaskControllerTest {
     @Test
     public void test_post_ok() throws Exception {
         Gson gson = new Gson();
-        String json = gson.toJson(new Task(0, "postTitle", "des", null, null, true));
+        String json = gson.toJson(new Task(0, "postTitle", "des", null, null));
 
         mockMvc.perform(post("/api/tasks")
                 .contentType(MediaType.APPLICATION_JSON).content(json))
