@@ -8,11 +8,17 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_ROOT_PASSWORD: 1234
+          MYSQL_DATABASE: todolist-test
+          MYSQL_USER: spring
+          MYSQL_PASSWORD: Spring12345
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
 
@@ -52,3 +58,26 @@ jobs:
       - run:
           name: Upload test coverage
           command: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+
+      - run:
+          # Our primary container isn't MYSQL so run a sleep command until it's ready.
+          name: Waiting for MySQL to be ready
+          command: |
+            for i in `seq 1 10`;
+            do
+            nc -z 127.0.0.1 3306 && echo Success && exit 0
+            echo -n .
+            sleep 1
+            done
+            echo Failed waiting for MySQL && exit 1
+      - run:
+          name: Install MySQL CLI; Import todolist-test data; run an example query
+          command: |
+            sudo apt install -y mysql-client
+            mysql -h 127.0.0.1 -P 3306 -u root --password=1234 < todolist-test.sql
+            mysql -h 127.0.0.1 -P 3306 -u root --password=1234 --execute="SELECT * FROM todolistTest.task"
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
